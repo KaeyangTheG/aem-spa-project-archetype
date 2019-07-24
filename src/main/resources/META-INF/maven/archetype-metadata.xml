@@ -54,6 +54,9 @@
         <fileSet filtered="true" packaged="false">
             <directory>react-app</directory>
         </fileSet>
+        <fileSet filtered="true" packaged="false">
+            <directory>ssr</directory>
+        </fileSet>
     </fileSets>
     <requiredProperties>
         <!-- Project name is used for building AEM apps path, content path, conf etc. -->

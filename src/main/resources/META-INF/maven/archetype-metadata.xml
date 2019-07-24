@@ -63,11 +63,9 @@
         <!-- Project name is used for building AEM apps path, content path, conf etc. -->
         <requiredProperty key="projectName">
             <validationRegex>^[a-zA-Z0-9\_]+$</validationRegex>
-            <defaultValue>mysamplespa</defaultValue>
         </requiredProperty>
         <!-- Project title - descriptive project name -->
         <requiredProperty key="projectTitle">
-            <defaultValue>My Sample SPA</defaultValue>
         </requiredProperty>
         <!-- Name of the component group -->
         <requiredProperty key="componentGroup">
@@ -96,6 +94,10 @@
         <requiredProperty key="version">
             <validationRegex>^\d+(\.\d+){0,2}(\-SNAPSHOT)?$</validationRegex>
             <defaultValue>1.0.0-SNAPSHOT</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="aemVersion">
+            <validationRegex>^\d\.\d\.\d$</validationRegex>
+            <defaultValue>6.5.0</defaultValue>
         </requiredProperty>
         <!-- Required HTL replacements -->
         <requiredProperty key="symbol_dollar">

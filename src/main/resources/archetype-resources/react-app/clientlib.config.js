@@ -21,9 +21,9 @@ module.exports = {
     clientLibRoot: "./../ui.apps/src/main/content/jcr_root/apps/${projectName}/clientlibs",
 
     libs: {
-        name: "${projectName}-${optionFrontend}",
+        name: "${projectName}-react",
         allowProxy: true,
-        categories: ["${projectName}-${optionFrontend}"],
+        categories: ["${projectName}-react"],
         embed: ["${projectName}.responsivegrid"],
         jsProcessor: ["min:gcc"],
         serializationFormat: "xml",

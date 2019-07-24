@@ -42,7 +42,6 @@
         <fileSet filtered="true" packaged="false">
             <directory>core/src/test/resources</directory>
         </fileSet>
-
         <fileSet filtered="true" packaged="false">
             <directory>all</directory>
         </fileSet>
@@ -54,9 +53,6 @@
         </fileSet>
         <fileSet filtered="true" packaged="false">
             <directory>react-app</directory>
-        </fileSet>
-        <fileSet filtered="true" packaged="false">
-            <directory>angular-app</directory>
         </fileSet>
     </fileSets>
     <requiredProperties>
@@ -70,11 +66,6 @@
         <!-- Name of the component group -->
         <requiredProperty key="componentGroup">
             <defaultValue>${projectTitle}</defaultValue>
-        </requiredProperty>
-        <!-- Type of the frontend app project -->
-        <requiredProperty key="optionFrontend">
-            <validationRegex>^(angular|react)$</validationRegex>
-            <defaultValue>react</defaultValue>
         </requiredProperty>
         <!-- Maven artifact groupId for all projects -->
         <requiredProperty key="groupId">

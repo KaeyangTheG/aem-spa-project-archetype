@@ -1,12 +1,4 @@
-## Maven Archetype for SPA Starter Kit
-
-This archetype creates a minimal Adobe Experience Manager project as a starting point for your own SPA projects. The properties that must be provided when using this archetype allow to name as desired all parts of this project.
-
-See the [Getting Started with the AEM SPA Editor - WKND Events Tutorial](https://helpx.adobe.com/experience-manager/kt/sites/using/getting-started-spa-wknd-tutorial-develop.html) on the Adobe Help Center website for an example of how to use it.
-
-## Contributing
-
-Contributions are welcome! Read the [Contributing Guide](CONTRIBUTING.md) for more information.
+## Maven Archetype for AEM React SSR project
 
 ## System requirements
 
@@ -20,14 +12,14 @@ Modules of the generated project is defined in [src/main/resources/archetype-res
 
 * [core](core/): OSGi bundle containing:
   * Java classes (e.g. Sling Models, Servlets, business logic)
+* [ssr](ssr/): Contains a class for fetching server side markup from the nodejs proxy
 * [ui.apps/src/main/content/jcr_root/apps](content/jcr_root/apps/):
   * AEM components with their scripts and dialog definitions
 * [ui.content/src/main/content/jcr_root/conf](content/jcr_root/conf/): 
   * AEM content package with editable templates stored at `/conf`
 * [ui.content/src/main/content/jcr_root/content](content/jcr_root/content/): 
   * AEM content package containing sample content (for development and test purposes)
-* [angular-app](angular-app/): Angular application in case frontend chosen is set to be "angular" at project generation 
-* [react-app](react-app/): React application in case frontend chosen is set to be "react" at project generation 
+* [react-app](react-app/): The React application
 * [all](all/): Combines all modules to be installed as content package in AEM
 
 ## Required parameters
@@ -40,7 +32,6 @@ This archetype requires following parameters:
 - `projectName` (default is `mysamplespa`) - Used for building AEM apps path, content path, conf etc. Should not include spaces or special character.
 - `projectTitle` (default is `My Sample SPA`) - Descriptive project name
 - `componentGroup` (default is `${projectTitle}`) - Name of the component group in AEM Editor
-- `optionFrontend` (default is `react`) - Type of frontent project, allowed options: either angular or react
 
 ## Building SPA Starter Kit Archetype
 
@@ -88,29 +79,48 @@ In interactive mode a series of questions will be asked set parameters for new p
 
 ```
 $ mvn archetype:generate \
-     -DarchetypeCatalog=internal \
+     -DarchetypeCatalog=local \
      -DarchetypeGroupId=com.adobe.cq.spa.archetypes  \
      -DarchetypeArtifactId=aem-spa-project-archetype  \
-     -DarchetypeVersion=1.0.5-SNAPSHOT \
+     -DarchetypeVersion=1.1.1-SNAPSHOT
 ```
 
 Please note that properties declared in [archetype-metadata.xml](src/main/resources/META-INF/maven/archetype-metadata.xml) with `defaultValue` are not asked during interactive mode and are defaulted to suggested values. 
 
-### Creating project in batch mode
+### Working with the created project
 
-In batch mode all the required parameters muse be set via `-Dparameter=value` argument.
+First cd in the root and build and deploy to your local instance:
+
 ```
-$ mvn archetype:generate -B \
-     -DarchetypeCatalog=local  \
-     -DarchetypeGroupId=com.adobe.cq.spa.archetypes  \
-     -DarchetypeArtifactId=aem-spa-project-archetype  \
-     -DarchetypeVersion=1.0.5-SNAPSHOT \
-     -Dpackage=<package> \
-     -DgroupId=<group-id> \
-     -DartifactId=<artifact-id> \
-     -Dversion=<version> \
-     -DprojectTitle="<project-title>"  \
-     -DprojectName=<project-name>  \
-     -DcomponentGroup=<component-group> \
-     -DoptionFrontend=react
+$ mvn -PautoInstallPackage -Padobe-public clean install
+
 ```
+
+Next configure two cross-origin policies on your AEM instance: 
+
+1. Navigate to the Configuration Manager on the AEM instance at http://localhost:4502/system/console/configMgr
+2. Look for the configuration: Adobe Granite Cross-Origin Resource Sharing Policy
+3. Create a new configuration with the following additional values:
+    * Allowed Origins: http://localhost:3000
+    * Supported Headers: Authorization
+    * Allowed Methods: OPTIONS
+4. Repeat steps 1-3 on a new policy with http://localhost:4200
+
+Run the frontend locally.  cd into ./react-app and run the following:
+
+```
+$ API_HOST=http://localhost:4205 npm run start
+
+```
+
+You can navigate to `http://localhost:3000/content/${projectName}/en/home.html to see it working.
+
+Test out the app with SSR.  In the root of ./react-app run: 
+
+```
+$ API_HOST=http://localhost:4205 APP_ROOT_PATH=/content/${projectName}/en npm run start:server
+
+```
+
+This starts a node server that renders the app server-side.  If you inspect and create a breakpoint within the POST method you can test it is working by going to http://localhost:4502/content/${projectName}/en/home.html?wcmmode=disabled.
+

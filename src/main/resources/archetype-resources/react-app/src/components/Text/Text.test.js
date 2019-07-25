@@ -77,16 +77,6 @@ describe("Text ->", () => {
         expect(rootNode.firstChild.innerHTML).toContain(TEXT_DATA_STR);
     });
 
-    it("should render the text component that contains the provided text as a DOM structure",() => {
-        expect(rootNode.childElementCount).toEqual(0);
-        ReactDOM.render(<Text text={TEXT_DATA} richText={true}/>, rootNode);
-
-        expect(rootNode.childElementCount).toEqual(1);
-
-        expect(rootNode.querySelector(RTE_EDIT_ELEMENT_DATA_ATTR_SELECTOR)).not.toBeNull();
-        expect(rootNode.querySelector('.' + TEXT_DATA_CLASS_NAME).innerHTML).toBe(TEXT_DATA_STR);
-    });
-
     it("should render the text as a rich text component",() => {
         expect(rootNode.childElementCount).toEqual(0);
         ReactDOM.render(<Text richText={true}/>, rootNode);

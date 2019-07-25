@@ -16,7 +16,6 @@
 import React, {Component} from 'react';
 import {extractModelId} from '../Utils';
 import {MapTo} from '@adobe/cq-react-editable-components';
-import DOMPurify from 'dompurify';
 
 require('./Text.css');
 
@@ -40,7 +39,7 @@ const TextEditConfig = {
 class Text extends Component {
 
     get richTextContent() {
-        return <div id={extractModelId(this.props.cqPath)} data-rte-editelement dangerouslySetInnerHTML={{__html:  DOMPurify.sanitize(this.props.text)}}/>;
+        return <div id={extractModelId(this.props.cqPath)} data-rte-editelement dangerouslySetInnerHTML={{__html: this.props.text}}/>;
     }
 
     get textContent() {

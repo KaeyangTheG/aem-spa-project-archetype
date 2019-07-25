@@ -43,6 +43,15 @@
             <directory>core/src/test/resources</directory>
         </fileSet>
         <fileSet filtered="true" packaged="false">
+            <directory>ssr</directory>
+            <includes>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" packaged="true">
+            <directory>ssr/src/main/java</directory>
+        </fileSet>
+        <fileSet filtered="true" packaged="false">
             <directory>all</directory>
         </fileSet>
         <fileSet filtered="true" packaged="false">
@@ -53,9 +62,6 @@
         </fileSet>
         <fileSet filtered="true" packaged="false">
             <directory>react-app</directory>
-        </fileSet>
-        <fileSet filtered="true" packaged="false">
-            <directory>ssr</directory>
         </fileSet>
     </fileSets>
     <requiredProperties>

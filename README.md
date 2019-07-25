@@ -39,6 +39,8 @@ This archetype requires following parameters:
 $ mvn clean install archetype:update-local-catalog
 ```
 
+In the event that you receive an error message: `Too many files with unapproved license` you might need to run the above command with the option ```-Drat.skip```
+
 ## Updating list of locally available archetypes
 
 ```
